@@ -22,5 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#API
-/apiKey.ts
+#API Normally I would not commit this however I was given instruction to just push up the key in the interest of time
+#/apiKey.ts
