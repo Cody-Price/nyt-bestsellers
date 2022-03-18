@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BestSellerResult, fetchBestsellers, fetchListNames } from './API/fetchBestsellers';
+import { BestSellerApiResult, fetchBestsellers, getBestSellers } from './API/fetchBestsellers';
 
 interface AppState {
-  bestSellerResults: BestSellerResult[];
+  bestSellerResults: BestSellerApiResult[];
   listNames: string[];
 }
 
@@ -17,16 +17,17 @@ class App extends Component<AppState> {
   async componentDidMount() {
     // this.setState({results: fetchBestsellers()});
     // console.log('results in app:', this.state.results);
-    const resultArray: BestSellerResult[] = [];
-    const listNames = await fetchListNames();
+    // const resultArray: BestSellerResult[] = [];
+    // const listNames = await fetchListNames();
     // console.log('listNames:', listNames);
-    await listNames.forEach(async (name: string) => {
-      resultArray.push(await fetchBestsellers(name))
-      console.log('resultArray:', resultArray);
-    });
+    // await listNames.forEach(async (name: string) => {
+    //   resultArray.push(await fetchBestsellers(name))
+    //   console.log('resultArray:', resultArray);
+    // });
     // const results = await fetchBestsellers();
     // console.log('results in app:', results);
     // this.setState({results});
+    this.setState({bestSellerResults: await getBestSellers()});
 
   }
 
@@ -35,8 +36,12 @@ class App extends Component<AppState> {
     return (
       <div className="App">
         <header className="App-header">
-          {bestSellerResults?.map((result: any, index: number) => <p key={index}>{result.title}</p>)}
+          {bestSellerResults[0]?.updated_date}
         </header>
+          <table>
+
+            {bestSellerResults?.map((result: any, index: number) => <p key={index}>{result.title}</p>)}
+          </table>
       </div>
     );
   }
