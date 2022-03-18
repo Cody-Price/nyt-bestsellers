@@ -18,7 +18,7 @@ This application was built using the [NYT Developers API](https://developer.nyti
 
 1. Add an upstream remote that points to the main repo: `git remote add upstream https://github.com/<YOUR_GITHUB_USERNAME_HERE>/nyt-bestsellers`
 
-1. Pull in the latest version of master from upstream (ie: the main repo): `git pull upstream master`
+1. Pull in the latest version of master from upstream (ie: the main repo): `git pull upstream main`
 
 1. Install dependencies: `npm install`
 
