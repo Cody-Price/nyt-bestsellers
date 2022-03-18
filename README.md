@@ -1,3 +1,26 @@
+# Welcome to NYT Bestsellers!
+
+This application was built using the [NYT Developers API](https://developer.nytimes.com/) in order to showcase all of the New York Times bestsellers for the current week, give the user some amplifying information on the book, as well as hook them up with their favorite bookstore so they can look more up on the book, or buy it if they're feeling the thirst for knowledge!
+
+## Running the application
+
+### Prerequisites:
+
+1. [Node](https://www.npmjs.com/get-npm)
+
+### Steps:
+
+1. Fork this repository by clicking on the "Fork" button on the top-right of this page.
+
+1. Open your CLI of choice and navigate to the directory (for instructions on how to navigate through your terminal see [here](https://ccrma.stanford.edu/guides/planetccrma/terminal.html)) you want your new directory to be located, and enter the following command: `git clone https://github.com/<YOUR_GITHUB_USERNAME_HERE>/nyt-bestsellers`
+
+1. Get into your new local copy of the nyt-bestsellers directory: `cd nyt-bestsellers`
+
+1. Add an upstream remote that points to the main repo: `git remote add upstream https://github.com/<YOUR_GITHUB_USERNAME_HERE>/nyt-bestsellers`
+
+1. Pull in the latest version of master from upstream (ie: the main repo): `git pull upstream master`
+
+1. Install dependencies: `npm install`
 
 ## Available Scripts
 
