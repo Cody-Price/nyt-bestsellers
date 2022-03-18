@@ -1,57 +1,108 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Component } from 'react';
 import './App.css';
-import { BestSellerApiResult, fetchBestsellers, getBestSellers } from './API/fetchBestsellers';
+import Header from './components/header/header';
+import Loading from './components/loading/loading';
+import Error from './components/error/error';
+import BestsellerTable from './components/bestseller-table/bestseller-table';
+import { BestsellerUiData, ExtractedOverviewData } from './models/data-models';
+import { getOverviewData, extractBestsellersUiDataFromOverviewData, extractUniqueListNameUiDataFromOverviewData } from './helpers/helpers';
 
 interface AppState {
-  bestSellerResults: BestSellerApiResult[];
+  allBestsellerResults: BestsellerUiData[];
+  overviewData: ExtractedOverviewData;
   listNames: string[];
+  loading: boolean;
+  selectedListName: string;
+  displayedBestsellers: BestsellerUiData[];
+  error: boolean;
 }
 
-class App extends Component<AppState> {
+class App extends Component<{}, AppState> {
   state: AppState = {
-    bestSellerResults: [],
+    allBestsellerResults: [],
+    overviewData: {
+      bestseller_week: '',
+      bestseller_list_name_contents: [],
+    },
     listNames: [],
+    loading: false,
+    selectedListName: '',
+    displayedBestsellers: [],
+    error: false,
   }
 
-  async componentDidMount() {
-    // this.setState({results: fetchBestsellers()});
-    // console.log('results in app:', this.state.results);
-    // const resultArray: BestSellerResult[] = [];
-    // const listNames = await fetchListNames();
-    // console.log('listNames:', listNames);
-    // await listNames.forEach(async (name: string) => {
-    //   resultArray.push(await fetchBestsellers(name))
-    //   console.log('resultArray:', resultArray);
-    // });
-    // const results = await fetchBestsellers();
-    // console.log('results in app:', results);
-    // this.setState({results});
-    this.setState({bestSellerResults: await getBestSellers()});
+  componentDidMount = (): void => {
+    this.setState({loading: true});
+    this.populateData();
+  }
 
+  populateData = async (): Promise<void> => {
+    let overviewData: ExtractedOverviewData = {
+      bestseller_list_name_contents: [],
+      bestseller_week: '',
+    };
+      overviewData = await getOverviewData();
+      if (overviewData.bestseller_list_name_contents.length) {
+        this.setState({overviewData});
+        this.setState((state, _props) => {
+          const allBestsellerResults = extractBestsellersUiDataFromOverviewData(state.overviewData);
+          const listNames = extractUniqueListNameUiDataFromOverviewData(state.overviewData);
+  
+          return {
+            allBestsellerResults,
+            displayedBestsellers: allBestsellerResults,
+            listNames,
+            loading: false,
+          };
+        });
+      } else {
+        this.setState({
+          error: true,
+          loading: false,
+        });
+      }
+  }
+
+  handleSelect = (event: any): void => {
+    const displayedBestsellers: BestsellerUiData[] 
+      = this.state.allBestsellerResults
+      .filter((bestseller: BestsellerUiData) => {
+        return event.target.value === 'All' ? true : bestseller.list_name === event.target.value;
+      });
+
+    this.setState({
+      selectedListName: event.target.value,
+      displayedBestsellers,
+    });
+  }
+
+  displayComponent = () => {
+    if(this.state.loading) {
+      return <Loading />
+    } else if (this.state.error) {
+      return <Error />
+    } else {
+      return <BestsellerTable displayedBestsellers={this.state.displayedBestsellers} />
+    }
   }
 
   render() {
-    const { bestSellerResults } = this.state;
+    const { displayedBestsellers, overviewData, listNames } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          {bestSellerResults[0]?.updated_date}
-        </header>
-          <table>
-
-            {bestSellerResults?.map((result: any, index: number) => <p key={index}>{result.title}</p>)}
-          </table>
+        <Header 
+          bestsellerWeek={overviewData.bestseller_week} 
+          displayedBestsellers={displayedBestsellers.length}
+          handleSelect={this.handleSelect}
+          listNames={listNames}
+          selectedListName={this.state.selectedListName}
+        />
+        {
+          this.displayComponent()
+        }
       </div>
     );
   }
 }
 
 export default App;
-
-
-// currently working on calling bestSellers with each list and populating state with all of the bestSellers for the week
-// Then display the data as required
-// Then ensure functionality is met
-// Style
-// clean up code

@@ -1,0 +1,33 @@
+tbody {
+  margin-top: 19vh;
+  display: flex;
+  flex-direction: column;
+}
+
+tr {
+  border: 1px solid blue;
+  display: flex;
+  justify-content: space-between;
+}
+
+td {
+  border: 1px solid black;
+  max-width: 10rem;
+  min-width: 4rem;
+  padding: 1rem;
+}
+
+.result-img {
+  max-height: fit-content;
+  min-width: 23.5rem;
+  padding: 0;
+}
+
+.no-border {
+  border: none;
+}
+
+.buy-link {
+  margin: 5px 0;
+  border: none;
+}
