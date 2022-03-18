@@ -56,8 +56,26 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Learn More
 
+If you would like to contribute to this project, email Cody Price at ctprice11@gmail.com (For suggested issues see "Next Steps" at the bottom of this README)
+
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Next Steps
+
+- !IMPORTANT Refine Styling (as of right now the styling is very rough, Prioritize before deployment!)
+- Implement Store/Redux/Thunks
+- Make App a stateless functional component (After Store/Redux/Thunks)
+- Add ability to select different weeks
+- Implement hooks as an alternative to state (Only perform if preferred and "Implement Store/Redux/Thunks" has not been implemented)
+- Refine types (Remove all instances of "any" type as these drastically reduce the advantages of using Typescript)
+- Implement a copy service to assist with nationalization
+- Increase accessability
+- Implement better error messaging to the user
+- Implement SCSS and animations
+- Unit test (Start with App.tsx, then api, helpers, and lastly child components)
+- E2e tested (I would suggest cucumber but open to suggestions)
+- Deploy the code to a live environment (Refine styling first!!!)
 
 #### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
