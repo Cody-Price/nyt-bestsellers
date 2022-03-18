@@ -22,5 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#API Normally I would not commit this however I was given instruction to just push up the key in the interest of time
+#API NOTE: apiKey.ts commented out in order to temporarily provide apiKey access to Kinsa Health
 #/apiKey.ts
